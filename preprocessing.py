@@ -74,6 +74,7 @@ def get_cepstrogram(spec, dct_type=2, norm='ortho'):
 
 def get_mfcc(file_path, sr=sr, n_mfcc=128, n_fft=n_fft , hop_length=hop_length, mono=True):
     audio, sr = librosa.load(file_path, sr=sr, mono=mono)
+    audio = audio[:640000]
     
     if(mono == True):
         mfcc_matrix = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc, n_fft=n_fft , hop_length=hop_length)

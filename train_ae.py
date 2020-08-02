@@ -220,11 +220,19 @@ def main():
             
             if((epoch+1) % args.save_checkpoint_steps == 0):
                 model_checkpoint = "%s_%s_step_%d.pt" % (args.model, args.conv_dim, epoch+1)
+                decoder_checkpoint = "decoder_%s_step_%d.pt" % (args.conv_dim, epoch+1)  # add
+                discriminator_checkpoint = "discriminator_step_%d.pt" % (epoch+1)  # add
                 output_model_file = os.path.join(args.output_dir, model_checkpoint)
+                decoder_file_path = os.path.join(args.output_dir, decoder_checkpoint)  # add
+                discriminator_file_path = os.path.join(args.output_dir, discriminator_checkpoint)  # add
                 if(args.multi_gpu == 'true'):
                     torch.save(encoder.module.state_dict(), output_model_file)
+                    torch.save(decoder.module.state_dict(), decoder_file_path)
+                    torch.save(discriminator.module.state_dict(), discriminator_file_path)
                 else:
                     torch.save(encoder.state_dict(), output_model_file)
+                    torch.save(decoder.state_dict(), decoder_file_path)
+                    torch.save(discriminator.state_dict(), discriminator_file_path)
                 print("Saving checkpoint %s" % output_model_file)
             
             
